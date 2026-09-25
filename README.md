@@ -5,7 +5,7 @@ The models are trained on monthly sales data from the CRMLS and evaluated using 
 
 ## Directory Structure
 ```
-appendix
+utilities
 ├── merge.py                       - Merges historical monthly sales
 └── utilities.py                   - Helper functions for applying transformations learned from the training data
 01_exploration.ipynb               - Explores variable distributions to inform preprocessing
