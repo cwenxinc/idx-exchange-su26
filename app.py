@@ -8,6 +8,10 @@ import pandas as pd
 import joblib
 import preprocess
 
+# find the absolute directory where app.py lives and construct the foolproof path to the model file
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, 'model.pkl')
+
 # load the trained model
 model = joblib.load('model.pkl')
 
