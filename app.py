@@ -8,6 +8,13 @@ import pandas as pd
 import joblib
 import preprocess
 
+# fix sklearn version compatibility issue
+import sklearn.compose._column_transformer as _ct
+if not hasattr(_ct, "_RemainderColsList"):
+    class _RemainderColsList(list):
+        pass
+    _ct._RemainderColsList = _RemainderColsList
+
 # find the absolute directory where app.py lives and construct the foolproof path to the model file
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, 'model.pkl')
