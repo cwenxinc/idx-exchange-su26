@@ -1,7 +1,12 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'utilities')))
+
 import streamlit as st
 import numpy as np
 import pandas as pd
 import joblib
+import preprocess
 
 # load the trained model
 model = joblib.load('model.pkl')
