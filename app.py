@@ -18,24 +18,20 @@ st.write('Enter the characteristics of a single-family home to generate an estim
 
 # gather user inputs on location 
 st.subheader('Location')
-loc1, loc2 = st.columns(2)
-with loc1: 
-    county = st.text_input('County') 
-    city = st.text_input('City') 
-    zipcode = st.text_input('Zipcode') 
-with loc2: 
-    school_district = st.text_input('School District')
-    mls_area = st.text_input('MLS Area Major')
+county = st.text_input('County') 
+city = st.text_input('City') 
+zipcode = st.text_input('Zipcode') 
+school_district = st.text_input('School District')
 
 # gather user inputs on layout
 st.subheader('Layout')
-layout1, layout2 = st.columns(2)
-with layout1:
-    living_area = st.number_input('Living Area (Sq Ft)', min_value=0, max_value=18000, step=100)
+col1, col2 = st.columns(2)
+with col1:
+    living_area = st.number_input('Living Area (Sq Ft)', min_value=0, max_value=18000, step=50)
     bedrooms = st.number_input('Bedrooms', min_value=0, max_value=10, step=1)
     bathrooms = st.number_input('Bathrooms', min_value=0, max_value=10, step=1)
+with col2:
     stories = st.number_input('Stories', min_value=1, max_value=3, step=1)
-with layout2:
     parking_spaces = st.number_input('Parking Spaces', min_value=0, max_value=10, step=1)
     lot_size = st.number_input('Lot Size (Sq Ft)', min_value=0, max_value=20000, step=100)
 
@@ -50,6 +46,9 @@ has_pool = st.checkbox('Private Pool')
 has_attached_garage = st.checkbox('Attached Garage')
 has_fireplace = st.checkbox('Fireplace')
 
+# put some space between input fields and button
+st.write('')
+
 # generate sales price prediction
 if st.button(
     'Estimate Home Value',
@@ -57,7 +56,6 @@ if st.button(
     use_container_width=False
 ):
     input_data = pd.DataFrame({
-        'MLSAreaMajor': [mls_area], 
         'CountyOrParish': [county], 
         'City': [city], 
         'PostalCode': [zipcode], 
