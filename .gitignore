@@ -1,0 +1,6 @@
+# system junk files
+.DS_Store
+.Rhistory
+
+# private data folder
+clean-data/
