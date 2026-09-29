@@ -13,7 +13,7 @@ st.set_page_config(
     page_title='Single-Family Home Value Estimator', 
     layout='centered'
 )
-st.title('Single-Family Home Value Estimator')
+# st.title('Single-Family Home Value Estimator')
 st.write('Enter the characteristics of a single-family home to generate an estimated sales price.')
 
 # gather user inputs on layout
@@ -73,9 +73,6 @@ if st.button(
         'DistrictNa': [school_district]
     })
 
-    st.write("Input data:")
-    st.write(input_data)
-    
     st.write("Columns:")
     st.write(input_data.columns.tolist())
     
@@ -83,6 +80,27 @@ if st.button(
     st.write(input_data.dtypes)
 
     try:
+        # DEBUGGING
+        preprocessor = model.regressor_.named_steps['features']
+        column_transformer = (
+            preprocessor
+            .named_steps['column_transformations']
+        )
+
+        location_pipeline = (
+            column_transformer
+            .named_transformers_['location_encoding']
+        )
+
+        target_encoder = location_pipeline.named_steps['target_encoding']
+
+        st.write("TargetEncoder columns:", target_encoder.cols)
+        st.write(
+            "Location transformer columns:",
+            column_transformer.transformers_[2][2]
+        )
+        # END OF DEBUGGING
+
         prediction = model.predict(input_data)
         st.success(f'Estimated Sales Price: ${prediction[0]:,.0f}')
     except Exception as e:
