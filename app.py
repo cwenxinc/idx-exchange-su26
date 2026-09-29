@@ -22,8 +22,7 @@ st.write('Get an instant home valuation based on recent California sales, then '
          'connect with an IDX Exchange expert to maximize your sales price.')
 
 with st.expander('About this model'):
-    st.write('This valuation model uses a tree-based ensemble machine learning method and is trained on CRMLS sales records from January 2025 through April 2026.')
-
+    st.write('This valuation model is based on gradient boosting and is trained on CRMLS sales records from January 2025 through April 2026.')
 
 # -------------------------
 # input controls
@@ -94,5 +93,5 @@ if st.button(
         st.success(f'Estimated Sales Price: ${prediction[0]:,.0f}')
 
     except Exception as e:
-        st.error("Sorry, the estimation failed.")
+        st.error('Sorry, we weren\'t able to generate an estimate.')
         st.exception(e)
