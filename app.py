@@ -21,21 +21,21 @@ st.title('What\'s My Home Worth in California?')
 st.write('Get an instant home valuation based on recent California sales, then ' 
          'connect with an IDX Exchange expert to maximize your sales price.')
 
-with st.expander('How is this tool built?'):
-    st.write('The valuation tool is trained on CRMLS sales records from January 2025 through April 2026 and ' 
-             'uses gradient boosting, a tree-based ensemble machine learning method, to generate sales price estimates.')
-
 # -------------------------
 # input controls
 # -------------------------
 # gather user inputs on layout
 st.write('To start off, help us gather some information about your home! \n')
+with st.expander('How is this tool built?'):
+    st.write('This tool is trained on CRMLS sales records from January 2025 through April 2026 and '
+             'uses gradient boosting, a tree-based ensemble machine learning method, to generate sales price estimates. '
+             'The information you provide below is used solely to prepare your estimate and will not be retained or sold.')
 
 st.subheader('What\'s the layout of your home?')
 living_area = st.number_input('Living Area (Sq Ft)', min_value=0, max_value=18000, step=1)
 bedrooms = st.number_input('Bedrooms', min_value=0, max_value=10, step=1)
 bathrooms = st.number_input('Bathrooms', min_value=0, max_value=10, step=1)
-stories = st.number_input('Stories', min_value=1, max_value=3, step=1)
+stories = st.number_input('Stories', min_value=1, max_value=3, step=1, value=1)
 parking_spaces = st.number_input('Parking Spaces', min_value=0, max_value=10, step=1)
 lot_size = st.number_input('Lot Size (Sq Ft)', min_value=0, max_value=20000, step=100)
 
@@ -86,10 +86,6 @@ if st.button(
         'PostalCode': [zipcode], 
         'DistrictNa': [school_district]
     })
-
-    with st.expander('How is this tool built?'):
-        st.write('The valuation tool is trained on CRMLS sales records from January 2025 through April 2026 and ' 
-                 'uses gradient boosting, a tree-based ensemble machine learning method, to generate sales price estimates.')
 
     try:
         prediction = model.predict(input_data)
