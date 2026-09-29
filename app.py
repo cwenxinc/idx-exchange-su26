@@ -10,7 +10,7 @@ model = joblib.load('model.pkl')
 
 # configure the page setup
 st.set_page_config(
-    page_title='Single-Family Home Value Estimator', 
+    page_title='California Single-Family Home Value Estimator', 
     layout='centered'
 )
 st.title('Single-Family Home Value Estimator')
@@ -41,6 +41,7 @@ age = st.number_input('Property Age (Years)', min_value=0, max_value=250, step=1
 
 # gather user inputs on location 
 st.subheader('Location')
+st.write('The location needs to be in California.')
 city = st.text_input('City') 
 county = st.text_input('County')
 zipcode = st.text_input('Zipcode') 
@@ -72,79 +73,115 @@ if st.button(
         'PostalCode': [zipcode], 
         'DistrictNa': [school_district]
     })
+    # -------------------------
+    # DEBUGGING
+    # -------------------------
+
+    # Get preprocessing components
+    preprocessor = model.regressor_.named_steps['features']
+
+    groupwise_imputer = (
+        preprocessor
+        .named_steps['groupwise_imputation']
+    )
+
+    column_transformer = (
+        preprocessor
+        .named_steps['column_transformations']
+    )
+
+    location_pipeline = (
+        column_transformer
+        .named_transformers_['location_encoding']
+    )
+
+    location_imputer = (
+        location_pipeline
+        .named_steps['location_imputer']
+    )
+
+    target_encoder = (
+        location_pipeline
+        .named_steps['target_encoding']
+    )
+
+    # 1. Check input
+    st.write("Input columns:")
+    st.write(input_data.columns.tolist())
+
+    st.write("Input dtypes:")
+    st.write(input_data.dtypes)
+
+    # 2. Check fitted encoder configuration
+    st.write("TargetEncoder columns:")
+    st.write(target_encoder.cols)
+
+    st.write("Location transformer columns:")
+    st.write(column_transformer.transformers_[2][2])
+
+    # 3. Extract location input
+    location_input = input_data[
+        ['CountyOrParish', 'City', 'PostalCode', 'DistrictNa']
+    ]
+
+    st.write("Location input:")
+    st.write(location_input)
+
+    # 4. Test SimpleImputer
     try:
-        # -------------------------
-        # DEBUGGING
-        # -------------------------
-
-        # 1. Inspect input
-        st.write("Input columns:")
-        st.write(input_data.columns.tolist())
-
-        st.write("Input dtypes:")
-        st.write(input_data.dtypes)
-
-        # 2. Access fitted preprocessing components
-        preprocessor = model.regressor_.named_steps['features']
-
-        column_transformer = (
-            preprocessor
-            .named_steps['column_transformations']
-        )
-
-        location_pipeline = (
-            column_transformer
-            .named_transformers_['location_encoding']
-        )
-
-        location_imputer = (
-            location_pipeline
-            .named_steps['location_imputer']
-        )
-
-        target_encoder = (
-            location_pipeline
-            .named_steps['target_encoding']
-        )
-
-        # 3. Confirm what the fitted TargetEncoder expects
-        st.write("TargetEncoder columns:")
-        st.write(target_encoder.cols)
-
-        st.write("Location transformer columns:")
-        st.write(column_transformer.transformers_[2][2])
-
-        # 4. Extract only the location columns
-        location_input = input_data[
-            ['CountyOrParish', 'City', 'PostalCode', 'DistrictNa']
-        ]
-
-        st.write("Location input:")
-        st.write(location_input)
-
-        # 5. Test SimpleImputer
         imputed_location = location_imputer.transform(location_input)
 
+        st.write("1. Location imputer succeeded.")
         st.write("Imputer output type:")
         st.write(type(imputed_location))
-
         st.write("Imputer output:")
         st.write(imputed_location)
 
-        # 6. Test TargetEncoder directly
+    except Exception as e:
+        st.error("1. Location imputer failed.")
+        st.exception(e)
+
+    # 5. Test TargetEncoder directly
+    try:
         encoded_location = target_encoder.transform(imputed_location)
 
-        st.write("TargetEncoder succeeded.")
+        st.write("2. TargetEncoder succeeded.")
         st.write(encoded_location)
 
-        # 7. Finally test the full model
-        prediction = model.predict(input_data)
-        st.success(f'Estimated Sales Price: ${prediction[0]:,.0f}')
+    except Exception as e:
+        st.error("2. TargetEncoder failed.")
+        st.exception(e)
 
-        # -------------------------
-        # END DEBUGGING
-        # -------------------------
+    # 6. Test GroupwiseImputer + ColumnTransformer
+    try:
+        imputed_input = groupwise_imputer.transform(input_data)
+
+        st.write("Groupwise imputer output:")
+        st.write(imputed_input)
+
+        features_output = column_transformer.transform(imputed_input)
+
+        st.write("3. ColumnTransformer succeeded.")
+        st.write("Output type:")
+        st.write(type(features_output))
+        st.write("Output:")
+        st.write(features_output)
 
     except Exception as e:
-        st.error('Sorry, the estimation could not be generated.')
+        st.error("3. ColumnTransformer failed.")
         st.exception(e)
+
+    # 7. Test complete model
+    try:
+        prediction = model.predict(input_data)
+
+        st.write("4. Full model prediction succeeded.")
+        st.success(f'Estimated Sales Price: ${prediction[0]:,.0f}')
+
+    except Exception as e:
+        st.error("4. Full model prediction failed.")
+        st.exception(e)
+
+    # -------------------------
+    # END DEBUGGING
+    # -------------------------
