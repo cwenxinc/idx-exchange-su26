@@ -1,6 +1,6 @@
 streamlit
-numpy
-pandas
-scikit-learn
-category_encoders
-lightgbm
+numpy==2.0.2
+pandas==2.3.3
+scikit-learn==1.5.2
+category_encoders==2.6.4
+lightgbm==4.6.0
