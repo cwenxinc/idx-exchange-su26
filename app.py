@@ -41,8 +41,8 @@ age = st.number_input('Property Age (Years)', min_value=0, max_value=250, step=1
 
 # gather user inputs on location 
 st.subheader('Location')
-county = st.text_input('County') 
 city = st.text_input('City') 
+county = st.text_input('County')
 zipcode = st.text_input('Zipcode') 
 school_district = st.text_input('School District')
 
