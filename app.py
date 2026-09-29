@@ -16,18 +16,11 @@ st.set_page_config(
 st.title('Single-Family Home Value Estimator')
 st.write('Enter the characteristics of a single-family home to generate an estimated sales price.')
 
-# gather user inputs on location 
-st.subheader('Location')
-county = st.text_input('County') 
-city = st.text_input('City') 
-zipcode = st.text_input('Zipcode') 
-school_district = st.text_input('School District')
-
 # gather user inputs on layout
 st.subheader('Layout')
 col1, col2 = st.columns(2)
 with col1:
-    living_area = st.number_input('Living Area (Sq Ft)', min_value=0, max_value=18000, step=50)
+    living_area = st.number_input('Living Area (Sq Ft)', min_value=0, max_value=18000, step=1)
     bedrooms = st.number_input('Bedrooms', min_value=0, max_value=10, step=1)
     bathrooms = st.number_input('Bathrooms', min_value=0, max_value=10, step=1)
 with col2:
