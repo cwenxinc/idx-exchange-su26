@@ -41,9 +41,7 @@ with layout2:
 
 # gather user inputs on construction history
 st.subheader('Construction History')
-hist = st.columns(1)
-with hist:
-    age = st.number_input('Property Age (Years)', min_value=0, max_value=250, step=1)
+age = st.number_input('Property Age (Years)', min_value=0, max_value=250, step=1)
 
 # gather user inputs on amenities
 st.subheader('Amenities')
@@ -82,5 +80,5 @@ if st.button(
         prediction = model.predict(input_data)
         st.success(f'Estimated Sales Price: ${prediction[0]:,.0f}')
     except Exception as e:
-        st.error('Sorry, the prediction could not be generated.')
+        st.error('Sorry, the estimation could not be generated.')
         st.exception(e)
