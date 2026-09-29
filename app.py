@@ -67,8 +67,8 @@ if st.button(
         'AttachedGarageYN': [has_attached_garage], 
         'FireplaceYN': [has_fireplace],
         'property_age': [age],
-        'CountyOrParish': [county], 
         'City': [city], 
+        'CountyOrParish': [county], 
         'PostalCode': [zipcode], 
         'DistrictNa': [school_district]
     })
