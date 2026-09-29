@@ -29,7 +29,7 @@ with st.expander('How is this tool built?'):
 # input controls
 # -------------------------
 # gather user inputs on layout
-st.write('Help us gather some information about your home! \n')
+st.write('To start off, help us gather some information about your home! \n')
 
 st.subheader('What\'s the layout of your home?')
 living_area = st.number_input('Living Area (Sq Ft)', min_value=0, max_value=18000, step=1)
@@ -86,6 +86,10 @@ if st.button(
         'PostalCode': [zipcode], 
         'DistrictNa': [school_district]
     })
+
+    with st.expander('How is this tool built?'):
+        st.write('The valuation tool is trained on CRMLS sales records from January 2025 through April 2026 and ' 
+                 'uses gradient boosting, a tree-based ensemble machine learning method, to generate sales price estimates.')
 
     try:
         prediction = model.predict(input_data)
