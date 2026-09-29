@@ -35,16 +35,23 @@ with col2:
     parking_spaces = st.number_input('Parking Spaces', min_value=0, max_value=10, step=1)
     lot_size = st.number_input('Lot Size (Sq Ft)', min_value=0, max_value=20000, step=100)
 
-# gather user inputs on construction history
-st.subheader('Construction History')
-age = st.number_input('Property Age (Years)', min_value=0, max_value=250, step=1)
-
 # gather user inputs on amenities
 st.subheader('Amenities')
 has_view = st.checkbox('View')
 has_pool = st.checkbox('Private Pool')
 has_attached_garage = st.checkbox('Attached Garage')
 has_fireplace = st.checkbox('Fireplace')
+
+# gather user inputs on construction history
+st.subheader('Construction History')
+age = st.number_input('Property Age (Years)', min_value=0, max_value=250, step=1)
+
+# gather user inputs on location 
+st.subheader('Location')
+county = st.text_input('County') 
+city = st.text_input('City') 
+zipcode = st.text_input('Zipcode') 
+school_district = st.text_input('School District')
 
 # put some space between input fields and button
 st.write('')
@@ -72,6 +79,16 @@ if st.button(
         'ParkingTotal': [parking_spaces], 
         'property_age': [age] 
     })
+
+    st.write("Input data:")
+    st.write(input_data)
+    
+    st.write("Columns:")
+    st.write(input_data.columns.tolist())
+    
+    st.write("Dtypes:")
+    st.write(input_data.dtypes)
+    
     try:
         prediction = model.predict(input_data)
         st.success(f'Estimated Sales Price: ${prediction[0]:,.0f}')
