@@ -2,15 +2,32 @@ import streamlit as st
 import pandas as pd
 import joblib
 import preprocess
-from pathlib import Path
 
 # load the trained model
 model = joblib.load('model.pkl')
 
-# configure the page setup
-st.title('California Single-Family Home Value Estimator')
-st.write('Enter the characteristics of a single-family home to generate an estimated sales price.')
+# -------------------------
+# tab configuration
+# -------------------------
+st.set_page_config(
+    page_title='California Home Valuation',
+    layout='wide'
+)
 
+# -------------------------
+# page content & structure
+# -------------------------
+st.title('What\'s My Home Worth in California?')
+st.write('Get an instant home valuation based on recent California sales, then ' 
+         'connect with an IDX Exchange expert to maximize your sales price.')
+
+with st.expander('About this model'):
+    st.write('This valuation model uses a tree-based ensemble machine learning method and is trained on CRMLS sales records from January 2025 through April 2026.')
+
+
+# -------------------------
+# input controls
+# -------------------------
 # gather user inputs on layout
 st.subheader('Layout')
 col1, col2 = st.columns(2)
@@ -45,7 +62,10 @@ school_district = st.text_input('School District')
 # put some space between input fields and button
 st.write('')
 
-# generate sales price prediction
+# -------------------------
+# button & status messages
+# -------------------------
+# generate sales price sprediction
 if st.button(
     'Estimate Home Value',
     type='primary',
