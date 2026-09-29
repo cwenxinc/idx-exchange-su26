@@ -63,21 +63,21 @@ if st.button(
     use_container_width=False
 ):
     input_data = pd.DataFrame({
-        'CountyOrParish': [county], 
-        'City': [city], 
-        'PostalCode': [zipcode], 
-        'DistrictNa': [school_district], 
-        'ViewYN': [has_view], 
-        'PoolPrivateYN': [has_pool], 
-        'AttachedGarageYN': [has_attached_garage], 
-        'FireplaceYN': [has_fireplace], 
         'LivingArea': [living_area], 
         'BedroomsTotal': [bedrooms], 
         'BathroomsTotalInteger': [bathrooms], 
         'Stories': [stories], 
+        'ParkingTotal': [parking_spaces],
         'LotSizeSquareFeet': [lot_size], 
-        'ParkingTotal': [parking_spaces], 
-        'property_age': [age] 
+        'ViewYN': [has_view], 
+        'PoolPrivateYN': [has_pool], 
+        'AttachedGarageYN': [has_attached_garage], 
+        'FireplaceYN': [has_fireplace],
+        'property_age': [age],
+        'CountyOrParish': [county], 
+        'City': [city], 
+        'PostalCode': [zipcode], 
+        'DistrictNa': [school_district]
     })
 
     st.write("Input data:")
@@ -88,7 +88,7 @@ if st.button(
     
     st.write("Dtypes:")
     st.write(input_data.dtypes)
-    
+
     try:
         prediction = model.predict(input_data)
         st.success(f'Estimated Sales Price: ${prediction[0]:,.0f}')
