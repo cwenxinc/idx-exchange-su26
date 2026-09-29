@@ -13,7 +13,7 @@ st.set_page_config(
     page_title='California Single-Family Home Value Estimator', 
     layout='centered'
 )
-st.title('Single-Family Home Value Estimator')
+st.title('California Single-Family Home Value Estimator')
 st.write('Enter the characteristics of a single-family home to generate an estimated sales price.')
 
 # gather user inputs on layout
@@ -141,15 +141,26 @@ if st.button(
         st.error("1. Location imputer failed.")
         st.exception(e)
 
-    # 5. Test TargetEncoder directly
+    # 5. Test TargetEncoder after restoring column names
     try:
-        encoded_location = target_encoder.transform(imputed_location)
+        imputed_location_df = pd.DataFrame(
+            imputed_location,
+            columns=location_input.columns,
+            index=location_input.index
+        )
 
-        st.write("2. TargetEncoder succeeded.")
+        st.write("Imputed location DataFrame:")
+        st.write(imputed_location_df)
+
+        encoded_location = target_encoder.transform(
+            imputed_location_df
+        )
+
+        st.write("2. TargetEncoder succeeded after restoring column names.")
         st.write(encoded_location)
 
     except Exception as e:
-        st.error("2. TargetEncoder failed.")
+        st.error("2. TargetEncoder still failed.")
         st.exception(e)
 
     # 6. Test GroupwiseImputer + ColumnTransformer
