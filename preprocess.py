@@ -167,7 +167,7 @@ def get_preprocessor(high_cardinality_cols, boolean_cols, numerical_cols, scale_
     # (iii) target encode high-cardinality categorical features
     location_processor = Pipeline([
         # handle missing values safely before encoding
-        ('location_imputer', SimpleImputer(strategy='constant', fill_value='Unknown')),
+        ('location_imputer', SimpleImputer(strategy='constant', fill_value='Unknown').set_output(transform='pandas')),
         # smoothing regularization prevents overfitting in sparse locations by taking a weighted average of local and global target means to encode location features
         ('target_encoding', TargetEncoder(smoothing=10.0))
     ])
