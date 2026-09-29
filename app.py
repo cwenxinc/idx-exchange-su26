@@ -45,12 +45,10 @@ age = st.number_input('Property Age (Years)', min_value=0, max_value=250, step=1
 
 # gather user inputs on amenities
 st.subheader('Amenities')
-amen = st.columns(1)
-with amen:
-    has_view = st.checkbox('View')
-    has_pool = st.checkbox('Private Pool')
-    has_attached_garage = st.checkbox('Attached Garage')
-    has_fireplace = st.checkbox('Fireplace')
+has_view = st.checkbox('View')
+has_pool = st.checkbox('Private Pool')
+has_attached_garage = st.checkbox('Attached Garage')
+has_fireplace = st.checkbox('Fireplace')
 
 # generate sales price prediction
 if st.button(
