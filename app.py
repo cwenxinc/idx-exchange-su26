@@ -17,7 +17,7 @@ st.set_page_config(
 # -------------------------
 # page content & structure
 # -------------------------
-st.image('logo.png', width=180)
+st.image('logo.png', width=120)
 st.title('What\'s My Home Worth in California?')
 st.write('Get an instant home valuation based on recent California sales, then ' 
          'connect with an IDX Exchange expert to maximize your sales price.')
