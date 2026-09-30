@@ -11,6 +11,7 @@ model = joblib.load('model.pkl')
 # -------------------------
 st.set_page_config(
     page_title='California Home Valuation',
+    page_icon='🏠',
     layout='wide'
 )
 
