@@ -17,6 +17,7 @@ st.set_page_config(
 # -------------------------
 # page content & structure
 # -------------------------
+st.image('logo.png', width=150)
 st.title('What\'s My Home Worth in California?')
 st.write('Get an instant home valuation based on recent California sales, then ' 
          'connect with an IDX Exchange expert to maximize your sales price.')
@@ -25,7 +26,7 @@ st.write('Get an instant home valuation based on recent California sales, then '
 # input controls
 # -------------------------
 st.write('To start off, help us gather some information about your home! \n')
-with st.expander('How is this tool built?'):
+with st.expander('How is this tool built and used?'):
     st.write('This tool is trained on CRMLS sales records from January 2025 through April 2026 and '
              'uses gradient boosting, a tree-based ensemble machine learning method, to generate sales price estimates. '
              'The information you provide below is used solely to prepare your estimate and will not be retained or sold.')
