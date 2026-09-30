@@ -55,11 +55,11 @@ with row2_col1:
         st.subheader('Amenities')
         sub_col1, sub_col2 = st.columns(2)
         with sub_col1:
-            has_view = st.checkbox('View', ['Yes', 'No'])
-            has_fireplace = st.checkbox('Fireplace', ['Yes', 'No'])
+            has_view = st.checkbox('View')
+            has_fireplace = st.checkbox('Fireplace')
         with sub_col2:
-            has_pool = st.checkbox('Private Pool', ['Yes', 'No'])
-            has_attached_garage = st.checkbox('Attached Garage', ['Yes', 'No'])
+            has_pool = st.checkbox('Private Pool')
+            has_attached_garage = st.checkbox('Attached Garage')
 with row2_col2:
     with st.container(border=True):
         st.subheader('Other Details')
