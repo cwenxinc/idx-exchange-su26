@@ -72,7 +72,20 @@ st.write('\n')
 # -------------------------
 # button & status messages
 # -------------------------
-# generate sales price prediction
+# configure call to action
+st.markdown(
+    """
+    <style>
+    div.stButton > button {
+        font-size: 20px;
+        font-weight: 600;
+        padding: 0.6rem 1.5rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 if st.button(
     'Show Me My Home Value',
     type='primary',
