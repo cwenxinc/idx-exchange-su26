@@ -112,6 +112,8 @@ if st.button(
     try:
         prediction = model.predict(input_data)
         st.success(f'Estimated Sales Price: ${prediction[0]:,.0f}')
+        with st.expander('How accurate is this estimate?'):
+            st.write('Testing showed that the estimate was typically within 7.88% of the actual sales price, based on the median absolute percentage error (MdAPE).')
 
     except Exception as e:
         st.error('Sorry, we weren\'t able to generate an estimate.')
