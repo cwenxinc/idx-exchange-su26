@@ -17,7 +17,7 @@ st.set_page_config(
 # -------------------------
 # page content & structure
 # -------------------------
-st.image('logo.png', width=150)
+st.image('logo.png', width=250)
 st.title('What\'s My Home Worth in California?')
 st.write('Get an instant home valuation based on recent California sales, then ' 
          'connect with an IDX Exchange expert to maximize your sales price.')
@@ -53,10 +53,13 @@ row2_col1, row2_col2 = st.columns(2, gap='large')
 with row2_col1:
     with st.container(border=True):
         st.subheader('Amenities')
-        has_view = st.checkbox('View')
-        has_fireplace = st.checkbox('Fireplace')
-        has_pool = st.checkbox('Private Pool')
-        has_attached_garage = st.checkbox('Attached Garage')
+        sub_col1, sub_col2 = st.columns(2)
+        with sub_col1:
+            has_view = st.checkbox('View', ['Yes', 'No'])
+            has_fireplace = st.checkbox('Fireplace', ['Yes', 'No'])
+        with sub_col2:
+            has_pool = st.checkbox('Private Pool', ['Yes', 'No'])
+            has_attached_garage = st.checkbox('Attached Garage', ['Yes', 'No'])
 with row2_col2:
     with st.container(border=True):
         st.subheader('Other Details')
