@@ -24,38 +24,30 @@ st.write('Get an instant home valuation based on recent California sales, then '
 # -------------------------
 # input controls
 # -------------------------
-# gather user inputs on layout
-st.write('To start off, help us gather some information about your home! \n')
-with st.expander('How is this tool built?'):
-    st.write('This tool is trained on CRMLS sales records from January 2025 through April 2026 and '
-             'uses gradient boosting, a tree-based ensemble machine learning method, to generate sales price estimates. '
-             'The information you provide below is used solely to prepare your estimate and will not be retained or sold.')
+col1, col2 = st.columns(2)
+with col1:
+    st.subheader('Layout & Amenities')
+    living_area = st.number_input('Living Area (Sq Ft)', min_value=0, max_value=18000, step=1)
+    bedrooms = st.number_input('Bedrooms', min_value=0, max_value=10, step=1)
+    bathrooms = st.number_input('Bathrooms', min_value=0, max_value=10, step=1)
+    stories = st.number_input('Stories', min_value=1, max_value=3, step=1, value=1)
+    parking_spaces = st.number_input('Parking Spaces', min_value=0, max_value=10, step=1)
+    lot_size = st.number_input('Lot Size (Sq Ft)', min_value=0, max_value=20000, step=100)
 
-st.subheader('What\'s the layout of your home?')
-living_area = st.number_input('Living Area (Sq Ft)', min_value=0, max_value=18000, step=1)
-bedrooms = st.number_input('Bedrooms', min_value=0, max_value=10, step=1)
-bathrooms = st.number_input('Bathrooms', min_value=0, max_value=10, step=1)
-stories = st.number_input('Stories', min_value=1, max_value=3, step=1, value=1)
-parking_spaces = st.number_input('Parking Spaces', min_value=0, max_value=10, step=1)
-lot_size = st.number_input('Lot Size (Sq Ft)', min_value=0, max_value=20000, step=100)
+    has_view = st.checkbox('View')
+    has_fireplace = st.checkbox('Fireplace')
+    has_pool = st.checkbox('Private Pool')
+    has_attached_garage = st.checkbox('Attached Garage')
 
-# gather user inputs on amenities
-st.subheader('Does it include the following amenities?')
-has_view = st.checkbox('View')
-has_pool = st.checkbox('Private Pool')
-has_attached_garage = st.checkbox('Attached Garage')
-has_fireplace = st.checkbox('Fireplace')
+with col2:
+    st.subheader('Location in CA')
+    city = st.text_input('City', placeholder='e.g., El Cajon') 
+    county = st.text_input('County', placeholder='e.g., San Diego')
+    zipcode = st.text_input('Zipcode', placeholder='e.g., 92021') 
+    school_district = st.text_input('School District', placeholder='e.g., Grossmont Union High')
 
-# gather user inputs on construction history
-st.subheader('How old is it?')
-age = st.number_input('Property Age (Years)', min_value=0, max_value=250, step=1)
-
-# gather user inputs on location 
-st.subheader('Where is it located in California?')
-city = st.text_input('City', placeholder='e.g., El Cajon') 
-county = st.text_input('County', placeholder='e.g., San Diego')
-zipcode = st.text_input('Zipcode', placeholder='e.g., 92021') 
-school_district = st.text_input('School District', placeholder='e.g., Grossmont Union High')
+    st.subheader('Other Details')
+    age = st.number_input('Property Age (Years)', min_value=0, max_value=250, step=1)
 
 # put some space between input fields and button
 st.write('\n')
