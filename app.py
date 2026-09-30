@@ -77,8 +77,8 @@ st.markdown(
     """
     <style>
     div.stButton > button {
-        font-size: 20px;
-        font-weight: 600;
+        font-size: 22px;
+        font-weight: 700;
         padding: 0.6rem 1.5rem;
     }
     </style>
